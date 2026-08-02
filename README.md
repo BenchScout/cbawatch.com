@@ -16,6 +16,10 @@ vanilla JavaScript — no build step, no dependencies.
 - `app.js` — countdown (hero + nav), hero figure count-up, scroll reveals, animated
   counters, chart rendering + tooltips
 - `fonts/` — self-hosted WOFF2 (Geist variable, Geist Mono variable)
+- `og.png`, `icon-*.png`, `apple-touch-icon.png`, `site.webmanifest` — share card and icons
+- `robots.txt`, `sitemap.xml`, `404.html` — crawler plumbing and a custom not-found page
+- JSON-LD structured data (WebSite, Organization, Article, Event, FAQPage) lives in the
+  head of `index.html`, mirrored by the visible FAQ section
 - `.github/workflows/deploy.yml` — deploys to GitHub Pages on every push to `main`
 
 Charts have direct value labels, keyboard-focusable rows with tooltips, and a data-table
