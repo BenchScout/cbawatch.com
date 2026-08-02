@@ -1,31 +1,33 @@
-# CBA Watch
+# CBA*WATCH
 
-An opinionated, animated single-page site counting down to the expiration of MLB's
-collective bargaining agreement on **December 1, 2026** — and making the case for a
-salary cap, a salary floor, and a competitive integrity tax.
+**Salary cap, or shut it down.** An opinionated, art-directed single-page site counting
+down to the expiration of MLB's collective bargaining agreement on **December 1, 2026** —
+and making the case for a salary cap, a salary floor, and a competitive integrity tax.
 
-Live opinion, static site: plain HTML, CSS, and vanilla JavaScript. No build step,
-no dependencies.
+Editorial "case file" design: newsprint paper, ink, and stitch-red; Fraunces display
+serif with Space Grotesk body and Space Mono scorecard labels (self-hosted, latin subset).
+Plain HTML, CSS, and vanilla JavaScript — no build step, no dependencies.
 
 ## Structure
 
-- `index.html` — the whole page (hero countdown, payroll charts, deferral breakdown, the fix, timeline)
-- `styles.css` — theming (light + dark via `prefers-color-scheme`), animations, chart styles
-- `app.js` — live countdown, scroll-reveal animations, animated counters, chart rendering + tooltips
+- `index.html` — the whole page: hero doom-clock, ticker marquee, the position, Exhibits A/B
+  (payroll + deferral ledgers), the remedy, road to the lockout, closer
+- `styles.css` — typography, film grain, scroll choreography, ledger chart styles
+- `app.js` — live countdown (hero + topbar), scroll progress, reveal animations,
+  animated counters, chart rendering + tooltips
+- `fonts/` — self-hosted WOFF2 (Fraunces variable, Space Grotesk variable, Space Mono)
 - `.github/workflows/deploy.yml` — deploys to GitHub Pages on every push to `main`
 
-Chart colors use validated same-hue ordinal ramps (light: `#86b6ef` → `#256abf`;
-dark: `#184f95` → `#3987e5`) with direct value labels and a table view for accessibility.
-Animations respect `prefers-reduced-motion`.
+Charts carry direct value labels, keyboard-focusable rows with tooltips, and a
+"view data as table" fallback. All animation respects `prefers-reduced-motion`.
 
 ## Deploying
 
 1. Merge to `main` (the workflow triggers on pushes to `main`, or run it manually via
    the Actions tab with *workflow_dispatch*).
-2. In the repository settings, set **Settings → Pages → Build and deployment →
-   Source** to **GitHub Actions** (one-time setup).
-3. To serve at `cbawatch.com`, add the custom domain under **Settings → Pages** and
-   point the domain's DNS at GitHub Pages.
+2. One-time setup: **Settings → Pages → Build and deployment → Source → GitHub Actions**.
+3. To serve at `cbawatch.com`, add the custom domain under **Settings → Pages** and point
+   the domain's DNS at GitHub Pages.
 
 ## Disclaimer
 
