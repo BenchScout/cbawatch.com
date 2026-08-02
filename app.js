@@ -39,7 +39,7 @@
   /* ── hero figure count-up ── */
   var heroCount = el("hero-count");
   if (heroCount && !reducedMotion) {
-    var HERO_TARGET = 400000000;
+    var HERO_TARGET = 417300000;
     var t0 = null;
     var run = function (ts) {
       if (t0 === null) t0 = ts;
@@ -65,28 +65,40 @@
   onScroll();
 
   /* ── charts ── */
+  /* 2026 opening day payrolls, AP / MLB Labor Relations Dept. figures.
+     ghost = the slice MLB's present-value accounting discounts away. */
   var PAYROLLS = [
-    { name: "Dodgers", value: 398, hero: true },
-    { name: "Mets", value: 340 },
-    { name: "Yankees", value: 318 },
-    { name: "Phillies", value: 285 },
-    { name: "Blue Jays", value: 259 },
-    { name: "League median", value: 178, median: true },
-    { name: "Pirates", value: 110 },
-    { name: "Rays", value: 103 },
-    { name: "White Sox", value: 92 },
-    { name: "Marlins", value: 86 },
-    { name: "Athletics", value: 75 }
+    { name: "Mets", value: 352.2 },
+    { name: "Dodgers", value: 316.6, hero: true, ghost: 78.6,
+      tip: "Dodgers · $316.6M official / $395.2M undiscounted" },
+    { name: "Yankees", value: 297.2 },
+    { name: "Phillies", value: 282 },
+    { name: "Blue Jays", value: 269 },
+    { name: "Cardinals", value: 100.4 },
+    { name: "Twins", value: 96.5 },
+    { name: "Guardians", value: 62.3 }
   ];
 
+  /* 2025 luxury-tax bills (three more clubs owed smaller amounts) */
+  var TAXES = [
+    { name: "Dodgers", value: 169.4, hero: true },
+    { name: "Mets", value: 91.6 },
+    { name: "Yankees", value: 61.8 },
+    { name: "Phillies", value: 56.1 },
+    { name: "Blue Jays", value: 13.6 },
+    { name: "Rangers", value: 0.2 }
+  ];
+
+  /* Dodgers deferred salary, approx. per player, $1.051B total */
   var DEFERRALS = [
     { name: "Shohei Ohtani", value: 680, hero: true },
     { name: "Mookie Betts", value: 115 },
     { name: "Blake Snell", value: 66 },
     { name: "Freddie Freeman", value: 57 },
+    { name: "Will Smith", value: 50 },
+    { name: "T. Hernández", value: 32 },
     { name: "Tommy Edman", value: 25 },
-    { name: "T. Hernández", value: 23 },
-    { name: "Other deferrals", value: 40 }
+    { name: "Tanner Scott", value: 21 }
   ];
 
   var tip = el("tip");
@@ -105,15 +117,16 @@
     var chart = el(chartId);
     var tbody = el(tbodyId);
     if (!chart) return;
-    var max = Math.max.apply(null, data.map(function (d) { return d.value; }));
+    var max = Math.max.apply(null, data.map(function (d) { return d.value + (d.ghost || 0); }));
 
     data.forEach(function (d) {
       var w = Math.max(1.2, (d.value / max) * 100);
 
       var row = document.createElement("div");
-      row.className = "chart-row" + (d.hero ? " is-hero" : "") + (d.median ? " is-median" : "");
+      row.className = "chart-row" + (d.hero ? " is-hero" : "");
       row.tabIndex = 0;
-      row.setAttribute("aria-label", d.name + ": approximately " + d.value + " million dollars");
+      row.setAttribute("aria-label", d.name + ": " + d.value + " million dollars" +
+        (d.ghost ? ", plus " + d.ghost + " million discounted by deferral accounting" : ""));
 
       var name = document.createElement("span");
       name.className = "chart-name";
@@ -125,6 +138,13 @@
       fill.className = "chart-fill";
       fill.style.setProperty("--w", w + "%");
       track.appendChild(fill);
+      if (d.ghost) {
+        var ghost = document.createElement("div");
+        ghost.className = "chart-ghost";
+        ghost.style.setProperty("--w", (d.ghost / max) * 100 + "%");
+        ghost.style.setProperty("--x", w + "%");
+        track.appendChild(ghost);
+      }
 
       var val = document.createElement("span");
       val.className = "chart-value";
@@ -135,7 +155,7 @@
       row.appendChild(val);
       chart.appendChild(row);
 
-      var tipText = d.name + " · " + fmtM(d.value) + " approx.";
+      var tipText = d.tip || (d.name + " · " + fmtM(d.value));
       row.addEventListener("mousemove", function (e) { showTip(tipText, e.clientX, e.clientY); });
       row.addEventListener("mouseleave", hideTip);
       row.addEventListener("focus", function () {
@@ -158,6 +178,7 @@
   }
 
   buildChart("payroll-chart", "payroll-table-body", PAYROLLS);
+  buildChart("tax-chart", "tax-table-body", TAXES);
   buildChart("deferral-chart", "deferral-table-body", DEFERRALS);
 
   /* ── animated counters ── */
