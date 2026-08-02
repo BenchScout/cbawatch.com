@@ -211,6 +211,130 @@
     if (chart) chart.classList.add("animated");
   }
 
+  /* ── petition ──────────────────────────────────────────
+     Signatures live on BenchScout (benchscout.com/api/v1/petitions/...);
+     this page is static, so the count and the form both go over the wire.
+     Everything degrades to a plain, still-usable form if the API is down. */
+  var PET_API = "https://benchscout.com/api/v1/petitions/mlb-salary-cap";
+  var petForm = el("pet-form");
+
+  if (petForm) {
+    var petCount = el("pet-count");
+    var petGoal = el("pet-goal");
+    var petGoalWrap = el("pet-goal-wrap");
+    var petFill = el("pet-fill");
+    var petMsg = el("pet-msg");
+    var petSubmit = el("pet-submit");
+    var petRecent = el("pet-recent");
+    var petList = el("pet-list");
+
+    var nf = new Intl.NumberFormat("en-US");
+
+    function say(text, tone) {
+      petMsg.textContent = text || "";
+      if (tone) petMsg.setAttribute("data-tone", tone);
+      else petMsg.removeAttribute("data-tone");
+    }
+
+    function paint(data) {
+      if (!data) return;
+      petCount.textContent = nf.format(data.count);
+      if (data.goal) {
+        petGoal.textContent = nf.format(data.goal);
+        petFill.style.width = Math.min(100, (data.count / data.goal) * 100) + "%";
+      } else {
+        petGoalWrap.hidden = true;
+      }
+      if (data.recent && data.recent.length) {
+        petList.innerHTML = "";
+        data.recent.forEach(function (sig) {
+          var li = document.createElement("li");
+          // textContent, never innerHTML — these names are strangers' input.
+          li.textContent = sig.name;
+          if (sig.location) {
+            var where = document.createElement("span");
+            where.textContent = " · " + sig.location;
+            li.appendChild(where);
+          }
+          petList.appendChild(li);
+        });
+        petRecent.hidden = false;
+      }
+      if (data.closed) {
+        petSubmit.disabled = true;
+        petSubmit.textContent = "Signing closed";
+      }
+    }
+
+    function load() {
+      fetch(PET_API, { headers: { Accept: "application/json" } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (body) { paint(body && body.data); })
+        .catch(function () { /* count stays "—"; the form still works */ });
+    }
+    load();
+
+    petForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var name = el("pet-name");
+      var email = el("pet-email");
+
+      name.removeAttribute("aria-invalid");
+      email.removeAttribute("aria-invalid");
+
+      if (!name.value.trim() || name.value.trim().length < 2) {
+        name.setAttribute("aria-invalid", "true");
+        name.focus();
+        return say("Add the name you want on the petition.", "err");
+      }
+      if (!/^[^\s@]+@[^\s@.]+\.[^\s@]+$/.test(email.value.trim())) {
+        email.setAttribute("aria-invalid", "true");
+        email.focus();
+        return say("That email doesn't look right.", "err");
+      }
+
+      petSubmit.disabled = true;
+      var was = petSubmit.textContent;
+      petSubmit.textContent = "Signing…";
+      say("");
+
+      fetch(PET_API + "/sign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.value,
+          email: email.value,
+          location: el("pet-loc").value,
+          comment: el("pet-comment").value,
+          website: el("pet-website").value
+        })
+      })
+        .then(function (r) { return r.json().then(function (b) { return { status: r.status, body: b }; }); })
+        .then(function (res) {
+          if (res.body && res.body.error) {
+            petSubmit.disabled = false;
+            petSubmit.textContent = was;
+            return say(res.body.error.message || "That didn't go through.", "err");
+          }
+          var data = res.body && res.body.data;
+          petForm.reset();
+          petSubmit.textContent = data && data.duplicate ? "Already signed" : "Signed";
+          say(
+            data && data.duplicate
+              ? "You'd already signed with that email — you're counted once."
+              : "Signed. Thank you — send it to someone who cares about this too.",
+            "ok"
+          );
+          if (data) petCount.textContent = nf.format(data.count);
+          load();
+        })
+        .catch(function () {
+          petSubmit.disabled = false;
+          petSubmit.textContent = was;
+          say("Couldn't reach the server. Try again in a moment.", "err");
+        });
+    });
+  }
   var targets = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && !reducedMotion) {
     var io = new IntersectionObserver(function (entries) {

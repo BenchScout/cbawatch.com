@@ -158,6 +158,7 @@
       <a href="#deferrals">Deferrals</a>
       <a href="#remedy">Remedy</a>
       <a href="#timeline">Timeline</a>
+      <a href="#sign">Sign</a>
       <a href="#sources">Sources</a>
     </nav>
     <div class="nav-clock" aria-label="Time until the CBA expires">
@@ -491,6 +492,66 @@
     <h2 class="closer-h reveal">If it takes a lockout,<br><span class="accent">take the lockout.</span></h2>
     <p class="closer-p reveal">Baseball has come back from every stoppage it has ever had. I'm
     less sure it comes back from another decade of this.</p>
+  </div>
+</section>
+
+<!-- ═══════════ SIGN ═══════════ -->
+<section class="sec" id="sign">
+  <div class="shell">
+    <div class="sec-main">
+      <h2 class="sec-h reveal">Put your name on it.</h2>
+      <p class="lede reveal">Owners and the union both spend the year telling each other what fans
+      will tolerate. This is the part where fans say it themselves: <strong>a cap, a floor, and a
+      tax with teeth</strong> — and a 2027 season that starts on time.</p>
+
+      <div class="pet reveal" id="pet">
+        <div class="pet-head">
+          <span class="pet-num" id="pet-count" aria-live="polite">—</span>
+          <span class="pet-of">signatures<span id="pet-goal-wrap"> of <span id="pet-goal">10,000</span></span></span>
+        </div>
+        <div class="pet-bar" role="img" aria-label="Progress toward the signature goal" id="pet-bar">
+          <span id="pet-fill"></span>
+        </div>
+      </div>
+
+      <form class="pet-form reveal" id="pet-form" novalidate>
+        <div class="pet-grid">
+          <label class="pet-field">
+            <span>Name</span>
+            <input id="pet-name" name="name" type="text" maxlength="70" autocomplete="name" required>
+          </label>
+          <label class="pet-field">
+            <span>Email</span>
+            <input id="pet-email" name="email" type="email" maxlength="254" autocomplete="email" required>
+          </label>
+          <label class="pet-field">
+            <span>Where you watch from <em>optional</em></span>
+            <input id="pet-loc" name="location" type="text" maxlength="60" autocomplete="address-level2">
+          </label>
+          <label class="pet-field">
+            <span>Why <em>optional, not published</em></span>
+            <input id="pet-comment" name="comment" type="text" maxlength="280">
+          </label>
+        </div>
+
+        <!-- Honeypot: off-screen and hidden from assistive tech. Bots fill it. -->
+        <div class="pet-hp" aria-hidden="true">
+          <label>Website<input id="pet-website" name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <div class="pet-actions">
+          <button type="submit" class="pet-btn" id="pet-submit">Sign the petition</button>
+          <p class="pet-fine">Your email is never published, shown, or sold — it is only used to
+          keep the count honest, one signature per person.</p>
+        </div>
+        <p class="pet-msg" id="pet-msg" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="pet-recent" id="pet-recent" hidden>
+        <h3 class="pet-recent-h">Recently signed</h3>
+        <ul class="pet-list" id="pet-list"></ul>
+      </div>
+    </div>
   </div>
 </section>
 

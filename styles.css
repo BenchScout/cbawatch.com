@@ -489,3 +489,94 @@ sup.cite a:hover { color: var(--red); }
   .live-dot, .tl-row.is-now h3::after { animation: none; }
   .chart-fill, .chart-ghost, .chart-value { transition: none; }
 }
+
+/* ── petition ────────────────────────────────────────── */
+.pet {
+  border-top: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(20px, 3.5vh, 30px) 0;
+  margin-bottom: clamp(28px, 5vh, 44px);
+}
+.pet-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.pet-num {
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 620;
+  letter-spacing: -0.03em; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.pet-of { font-size: 0.85rem; color: var(--t3); }
+.pet-bar {
+  margin-top: 16px; height: 3px; border-radius: 2px;
+  background: var(--wash); overflow: hidden;
+}
+.pet-bar > span {
+  display: block; height: 100%; width: 0;
+  background: var(--red); border-radius: 2px;
+  transition: width 0.9s var(--ease);
+}
+
+.pet-form { max-width: 720px; }
+.pet-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 20px;
+}
+@media (max-width: 640px) { .pet-grid { grid-template-columns: 1fr; } }
+
+.pet-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.pet-field > span { font-size: 0.78rem; color: var(--t3); letter-spacing: 0.01em; }
+.pet-field > span em { font-style: normal; color: var(--t3); opacity: 0.6; }
+.pet-field input {
+  font-family: inherit; font-size: 0.95rem; color: var(--t1);
+  background: var(--bg-raise);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 11px 13px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  min-width: 0; width: 100%;
+}
+.pet-field input::placeholder { color: var(--t3); }
+.pet-field input:hover { border-color: var(--line-2); }
+.pet-field input:focus {
+  outline: none; border-color: var(--red);
+  background: var(--bg);
+}
+.pet-field input[aria-invalid="true"] { border-color: var(--red); }
+
+/* Off-screen rather than display:none — some bots skip hidden inputs. */
+.pet-hp {
+  position: absolute; left: -9999px; width: 1px; height: 1px;
+  overflow: hidden;
+}
+
+.pet-actions {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  margin-top: 20px;
+}
+.pet-btn {
+  font-family: inherit; font-size: 0.92rem; font-weight: 550;
+  color: #fff; background: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 8px; padding: 12px 22px;
+  cursor: pointer; letter-spacing: -0.005em;
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+.pet-btn:hover:not(:disabled) { filter: brightness(1.1); }
+.pet-btn:disabled { opacity: 0.55; cursor: default; }
+.pet-fine { flex: 1 1 260px; min-width: 0; font-size: 0.76rem; color: var(--t3); line-height: 1.5; }
+
+.pet-msg { margin-top: 14px; font-size: 0.88rem; min-height: 1.2em; }
+.pet-msg[data-tone="ok"] { color: var(--t1); }
+.pet-msg[data-tone="err"] { color: var(--red); }
+
+.pet-recent { margin-top: clamp(30px, 5vh, 48px); }
+.pet-recent-h {
+  font-size: 0.78rem; font-weight: 500; color: var(--t3);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pet-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.pet-list li {
+  font-size: 0.84rem; color: var(--t2);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 5px 12px; background: var(--wash);
+}
+.pet-list li span { color: var(--t3); }
