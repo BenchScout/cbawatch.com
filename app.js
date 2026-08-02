@@ -1,64 +1,70 @@
-/* CBA*WATCH — countdown, scroll choreography, ledger charts */
+/* CBA Watch — countdown, reveals, counters, charts */
 (function () {
   "use strict";
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var EASE_OUT = function (p) { return 1 - Math.pow(1 - p, 3); };
 
-  /* ---------- countdown: CBA expires Dec 1, 2026, 11:59 PM ET (04:59 UTC Dec 2) ---------- */
+  /* ── countdown: CBA expires Dec 1, 2026, 11:59 pm ET (04:59 UTC Dec 2) ── */
   var EXPIRY = Date.UTC(2026, 11, 2, 4, 59, 0);
-  var cdDays = document.getElementById("cd-days");
-  var cdHours = document.getElementById("cd-hours");
-  var cdMins = document.getElementById("cd-mins");
-  var cdSecs = document.getElementById("cd-secs");
-  var miniClock = document.getElementById("mini-clock");
+  var el = function (id) { return document.getElementById(id); };
+  var cd = { d: el("cd-days"), h: el("cd-hours"), m: el("cd-mins"), s: el("cd-secs") };
+  var miniClock = el("mini-clock");
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
-  function updateCountdown() {
+  function tick() {
     var ms = EXPIRY - Date.now();
     if (ms <= 0) {
-      cdDays.textContent = "0";
-      cdHours.textContent = cdMins.textContent = cdSecs.textContent = "00";
-      miniClock.textContent = "000:00:00:00";
-      document.getElementById("dc-caption").textContent =
-        "The CBA has expired. Lockout mode: engaged.";
+      cd.d.textContent = "0";
+      cd.h.textContent = cd.m.textContent = cd.s.textContent = "00";
+      miniClock.textContent = "expired";
+      el("clock-caption").textContent =
+        "The CBA has expired. The lockout is here — time to build the fix.";
       return;
     }
     var s = Math.floor(ms / 1000);
     var d = Math.floor(s / 86400);
     var h = Math.floor(s / 3600) % 24;
     var m = Math.floor(s / 60) % 60;
-    var sec = s % 60;
-    cdDays.textContent = String(d);
-    cdHours.textContent = pad(h);
-    cdMins.textContent = pad(m);
-    cdSecs.textContent = pad(sec);
-    miniClock.textContent = String(d).padStart(3, "0") + ":" + pad(h) + ":" + pad(m) + ":" + pad(sec);
+    cd.d.textContent = String(d);
+    cd.h.textContent = pad(h);
+    cd.m.textContent = pad(m);
+    cd.s.textContent = pad(s % 60);
+    miniClock.textContent = d + "d " + pad(h) + ":" + pad(m) + ":" + pad(s % 60);
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  tick();
+  setInterval(tick, 1000);
 
-  /* ---------- topbar + scroll progress ---------- */
-  var topbar = document.getElementById("topbar");
-  var progressBar = document.getElementById("progress-bar");
-  var ticking = false;
+  /* ── hero figure count-up ── */
+  var heroCount = el("hero-count");
+  if (heroCount && !reducedMotion) {
+    var HERO_TARGET = 400000000;
+    var t0 = null;
+    var run = function (ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / 1600, 1);
+      heroCount.textContent = Math.round(HERO_TARGET * EASE_OUT(p)).toLocaleString("en-US");
+      if (p < 1) requestAnimationFrame(run);
+    };
+    requestAnimationFrame(run);
+  }
 
+  /* ── nav state ── */
+  var nav = el("nav");
+  var scrollScheduled = false;
   function onScroll() {
-    if (ticking) return;
-    ticking = true;
+    if (scrollScheduled) return;
+    scrollScheduled = true;
     requestAnimationFrame(function () {
-      var y = window.scrollY;
-      topbar.classList.toggle("is-stuck", y > 30);
-      var doc = document.documentElement;
-      var max = doc.scrollHeight - doc.clientHeight;
-      progressBar.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
-      ticking = false;
+      nav.classList.toggle("is-stuck", window.scrollY > 12);
+      scrollScheduled = false;
     });
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- ledger charts ---------- */
+  /* ── charts ── */
   var PAYROLLS = [
     { name: "Dodgers", value: 398, hero: true },
     { name: "Mets", value: 340 },
@@ -83,60 +89,60 @@
     { name: "Other deferrals", value: 40 }
   ];
 
-  var tooltip = document.getElementById("viz-tooltip");
+  var tip = el("tip");
 
-  function showTooltip(text, x, y) {
-    tooltip.textContent = text;
-    tooltip.hidden = false;
-    tooltip.style.left = x + "px";
-    tooltip.style.top = y + "px";
+  function showTip(text, x, y) {
+    tip.textContent = text;
+    tip.hidden = false;
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
   }
-  function hideTooltip() { tooltip.hidden = true; }
+  function hideTip() { tip.hidden = true; }
 
-  function fmtMillions(v) { return "$" + v.toLocaleString("en-US") + "M"; }
+  function fmtM(v) { return "$" + v.toLocaleString("en-US") + "M"; }
 
-  function buildLedger(containerId, tableBodyId, data) {
-    var container = document.getElementById(containerId);
-    var tbody = document.getElementById(tableBodyId);
-    if (!container) return;
+  function buildChart(chartId, tbodyId, data) {
+    var chart = el(chartId);
+    var tbody = el(tbodyId);
+    if (!chart) return;
     var max = Math.max.apply(null, data.map(function (d) { return d.value; }));
 
     data.forEach(function (d) {
-      var w = Math.max(1.5, (d.value / max) * 100);
+      var w = Math.max(1.2, (d.value / max) * 100);
 
       var row = document.createElement("div");
-      row.className = "ledger-row" + (d.hero ? " is-hero" : "") + (d.median ? " is-median" : "");
+      row.className = "chart-row" + (d.hero ? " is-hero" : "") + (d.median ? " is-median" : "");
       row.tabIndex = 0;
       row.setAttribute("aria-label", d.name + ": approximately " + d.value + " million dollars");
 
       var name = document.createElement("span");
-      name.className = "ledger-name";
+      name.className = "chart-name";
       name.textContent = d.name;
 
       var track = document.createElement("div");
-      track.className = "ledger-track";
+      track.className = "chart-track";
       var fill = document.createElement("div");
-      fill.className = "ledger-fill";
+      fill.className = "chart-fill";
       fill.style.setProperty("--w", w + "%");
       track.appendChild(fill);
 
       var val = document.createElement("span");
-      val.className = "ledger-value";
-      val.textContent = fmtMillions(d.value);
+      val.className = "chart-value";
+      val.textContent = fmtM(d.value);
 
       row.appendChild(name);
       row.appendChild(track);
       row.appendChild(val);
-      container.appendChild(row);
+      chart.appendChild(row);
 
-      var tipText = d.name + " — " + fmtMillions(d.value) + " (APPROX.)";
-      row.addEventListener("mousemove", function (e) { showTooltip(tipText, e.clientX, e.clientY); });
-      row.addEventListener("mouseleave", hideTooltip);
+      var tipText = d.name + " · " + fmtM(d.value) + " approx.";
+      row.addEventListener("mousemove", function (e) { showTip(tipText, e.clientX, e.clientY); });
+      row.addEventListener("mouseleave", hideTip);
       row.addEventListener("focus", function () {
         var r = row.getBoundingClientRect();
-        showTooltip(tipText, r.left + r.width / 2, r.top);
+        showTip(tipText, r.left + r.width / 2, r.top);
       });
-      row.addEventListener("blur", hideTooltip);
+      row.addEventListener("blur", hideTip);
 
       if (tbody) {
         var tr = document.createElement("tr");
@@ -151,38 +157,36 @@
     });
   }
 
-  buildLedger("payroll-chart", "payroll-table-body", PAYROLLS);
-  buildLedger("deferral-chart", "deferral-table-body", DEFERRALS);
+  buildChart("payroll-chart", "payroll-table-body", PAYROLLS);
+  buildChart("deferral-chart", "deferral-table-body", DEFERRALS);
 
-  /* ---------- animated counters ---------- */
-  function animateCounter(el) {
-    var target = parseFloat(el.getAttribute("data-count"));
-    var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+  /* ── animated counters ── */
+  function countUp(node) {
+    var target = parseFloat(node.getAttribute("data-count"));
+    var decimals = parseInt(node.getAttribute("data-decimals") || "0", 10);
     if (reducedMotion) {
-      el.textContent = target.toFixed(decimals);
+      node.textContent = target.toFixed(decimals);
       return;
     }
-    var duration = 1400;
-    var start = null;
-    function step(ts) {
-      if (start === null) start = ts;
-      var p = Math.min((ts - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = (target * eased).toFixed(decimals);
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+    var t0 = null;
+    var run = function (ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / 1300, 1);
+      node.textContent = (target * EASE_OUT(p)).toFixed(decimals);
+      if (p < 1) requestAnimationFrame(run);
+    };
+    requestAnimationFrame(run);
   }
 
-  /* ---------- scroll reveals ---------- */
+  /* ── scroll reveals ── */
   var counted = new WeakSet();
 
-  function activate(el) {
-    el.classList.add("in-view");
-    el.querySelectorAll("[data-count]").forEach(function (c) {
-      if (!counted.has(c)) { counted.add(c); animateCounter(c); }
+  function activate(node) {
+    node.classList.add("in-view");
+    node.querySelectorAll("[data-count]").forEach(function (c) {
+      if (!counted.has(c)) { counted.add(c); countUp(c); }
     });
-    var chart = el.querySelector(".ledger");
+    var chart = node.querySelector(".chart");
     if (chart) chart.classList.add("animated");
   }
 
@@ -195,7 +199,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
     targets.forEach(function (t) { io.observe(t); });
   } else {
     targets.forEach(activate);
