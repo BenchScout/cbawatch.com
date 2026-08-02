@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBA Watch — The Case for a Salary Cap in Baseball</title>
+<meta name="description" content="An opinionated countdown to baseball's next labor war. Why MLB needs a salary cap, a salary floor, and a competitive integrity tax — before the Dodgers finish breaking the sport.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='white' stroke='%23333' stroke-width='3'/><path d='M25 12 Q40 50 25 88' fill='none' stroke='%23d03b3b' stroke-width='5' stroke-linecap='round'/><path d='M75 12 Q60 50 75 88' fill='none' stroke='%23d03b3b' stroke-width='5' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="CBA Watch home">
+      <svg class="brand-ball" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" class="ball-face"/>
+        <path d="M25 12 Q40 50 25 88" class="ball-stitch-line"/>
+        <path d="M75 12 Q60 50 75 88" class="ball-stitch-line"/>
+        <g class="ball-stitches">
+          <path d="M22 24 l8 3 M21 34 l9 2 M21 44 l9 1 M21 56 l9 -1 M21 66 l9 -2 M22 76 l8 -3"/>
+          <path d="M78 24 l-8 3 M79 34 l-9 2 M79 44 l-9 1 M79 56 l-9 -1 M79 66 l-9 -2 M78 76 l-8 -3"/>
+        </g>
+      </svg>
+      <span class="brand-name">CBA<span class="brand-accent">Watch</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#problem">The Problem</a>
+      <a href="#deferrals">The Shell Game</a>
+      <a href="#fix">The Fix</a>
+      <a href="#timeline">Timeline</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-sky" aria-hidden="true">
+    <svg class="hero-ball float-slow" viewBox="0 0 200 200">
+      <defs>
+        <radialGradient id="ballShade" cx="38%" cy="32%" r="75%">
+          <stop offset="0%" stop-color="var(--ball-hi)"/>
+          <stop offset="100%" stop-color="var(--ball-lo)"/>
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="92" fill="url(#ballShade)" class="hero-ball-face"/>
+      <path d="M52 22 Q82 100 52 178" class="hero-stitch-curve"/>
+      <path d="M148 22 Q118 100 148 178" class="hero-stitch-curve"/>
+      <g class="hero-stitches">
+        <path d="M46 42 l14 5 M44 60 l16 4 M43 78 l17 2 M43 96 l17 1 M43 114 l17 -2 M44 132 l16 -3 M46 150 l14 -5"/>
+        <path d="M154 42 l-14 5 M156 60 l-16 4 M157 78 l-17 2 M157 96 l-17 1 M157 114 l-17 -2 M156 132 l-16 -3 M154 150 l-14 -5"/>
+      </g>
+    </svg>
+    <svg class="hero-lock float-fast" viewBox="0 0 120 140">
+      <path d="M30 62 V44 a30 30 0 0 1 60 0 v18" class="lock-shackle"/>
+      <rect x="16" y="60" width="88" height="66" rx="10" class="lock-body"/>
+      <circle cx="60" cy="88" r="9" class="lock-hole"/>
+      <rect x="56" y="92" width="8" height="18" rx="3" class="lock-hole"/>
+    </svg>
+  </div>
+
+  <div class="wrap hero-inner">
+    <p class="kicker reveal">The collective bargaining agreement expires December&nbsp;1,&nbsp;2026</p>
+    <h1 class="hero-title reveal">Baseball's reckoning<br>is <em>on the clock.</em></h1>
+    <p class="hero-sub reveal">A lockout is coming — and honestly? Good. It's the sport's one chance
+    to fix an economic system where one team can spend five times more than another
+    and call it competition. This site makes the case for a <strong>salary cap</strong>,
+    a <strong>salary floor</strong>, and a <strong>competitive integrity tax</strong>.</p>
+
+    <div class="countdown reveal" role="timer" aria-label="Time until the CBA expires">
+      <div class="count-unit"><span class="count-num" id="cd-days">—</span><span class="count-label">days</span></div>
+      <div class="count-sep" aria-hidden="true">:</div>
+      <div class="count-unit"><span class="count-num" id="cd-hours">—</span><span class="count-label">hours</span></div>
+      <div class="count-sep" aria-hidden="true">:</div>
+      <div class="count-unit"><span class="count-num" id="cd-mins">—</span><span class="count-label">minutes</span></div>
+      <div class="count-sep" aria-hidden="true">:</div>
+      <div class="count-unit"><span class="count-num" id="cd-secs">—</span><span class="count-label">seconds</span></div>
+    </div>
+    <p class="countdown-caption reveal">until the CBA expires at 11:59&nbsp;PM&nbsp;ET on December&nbsp;1,&nbsp;2026</p>
+  </div>
+
+  <svg class="stadium-divider" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,120 L0,70 L60,70 L60,50 L90,50 L90,70 L180,70 L200,30 L240,30 L260,70 L340,70 L340,45 L370,45 L370,70 L470,70 L500,20 L560,20 L590,70 L700,70 L700,40 L740,40 L740,70 L840,70 L860,25 L920,25 L940,70 L1040,70 L1040,50 L1080,50 L1080,70 L1180,70 L1200,35 L1250,35 L1270,70 L1360,70 L1360,55 L1400,55 L1400,70 L1440,70 L1440,120 Z"/>
+  </svg>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto">
+  <div class="wrap">
+    <h2 class="section-title reveal">Where this site stands</h2>
+    <p class="section-lede reveal">No both-sidesing here. This is a fan site with a position, and the position is this:</p>
+    <div class="pillar-grid">
+      <article class="pillar reveal">
+        <svg class="pillar-icon" viewBox="0 0 120 100" aria-hidden="true">
+          <path d="M14 62 Q14 26 60 26 Q106 26 106 62 L14 62 Z" class="icon-fill"/>
+          <path d="M106 62 q14 0 10 14 q-40 8 -102 -2 L14 62 Z" class="icon-fill-2"/>
+          <path d="M60 26 v36 M38 30 q-4 16 -2 32 M82 30 q4 16 2 32" class="icon-line"/>
+        </svg>
+        <h3>1. Cap it. Finally.</h3>
+        <p>The NFL, NBA, and NHL all live under salary caps. MLB is the last major
+        North American league where a payroll can simply be a function of your
+        owner's ambition and your TV market. That's not a free market — it's a
+        head start, purchased annually.</p>
+      </article>
+      <article class="pillar reveal">
+        <svg class="pillar-icon" viewBox="0 0 120 100" aria-hidden="true">
+          <circle cx="60" cy="42" r="30" class="icon-fill"/>
+          <path d="M46 22 Q54 42 46 62 M74 22 Q66 42 74 62" class="icon-line-red"/>
+          <path d="M30 78 L90 78" class="icon-line"/>
+          <path d="M36 88 L84 88" class="icon-line faint"/>
+          <text x="60" y="49" text-anchor="middle" class="icon-money">$</text>
+        </svg>
+        <h3>2. The Dodgers broke it.</h3>
+        <p>Back-to-back champions, a luxury-tax payroll approaching
+        <strong>$400&nbsp;million</strong>, and more than <strong>$1&nbsp;billion</strong>
+        in deferred salary pushed decades into the future. It's a brilliant
+        front office exploiting a broken system — and it's ruining the
+        integrity of the game.</p>
+      </article>
+      <article class="pillar reveal">
+        <svg class="pillar-icon" viewBox="0 0 120 100" aria-hidden="true">
+          <path d="M60 12 V80" class="icon-line"/>
+          <path d="M24 30 H96" class="icon-line"/>
+          <path d="M24 30 L14 54 a12 8 0 0 0 22 0 Z" class="icon-fill"/>
+          <path d="M96 30 L86 54 a12 8 0 0 0 22 0 Z" class="icon-fill-2"/>
+          <path d="M42 88 H78" class="icon-line"/>
+        </svg>
+        <h3>3. Tax the tankers too.</h3>
+        <p>A cap without a floor just pads owners' pockets. Pair the cap with a
+        <strong>competitive integrity tax</strong>: teams that pocket
+        revenue-sharing checks while running $70M payrolls should pay for
+        the privilege of not trying. Spend on the roster, or pay the league.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE PROBLEM ============ -->
+<section class="problem" id="problem">
+  <div class="wrap">
+    <h2 class="section-title reveal">One of these teams is not like the others</h2>
+    <p class="section-lede reveal">Approximate 2025 luxury-tax payrolls. The Dodgers didn't just
+    outspend the bottom of the league — they outspent it <em>five times over</em>.</p>
+
+    <div class="stat-row reveal">
+      <div class="stat-tile">
+        <span class="stat-label">Dodgers 2025 CBT payroll</span>
+        <span class="stat-value">$<span data-count="398">0</span>M</span>
+        <span class="stat-delta up-bad">≈ $150M over the tax line</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-label">Athletics 2025 CBT payroll</span>
+        <span class="stat-value">$<span data-count="75">0</span>M</span>
+        <span class="stat-delta">lowest in baseball</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-label">Top-to-bottom payroll gap</span>
+        <span class="stat-value"><span data-count="5.3" data-decimals="1">0</span>×</span>
+        <span class="stat-delta up-bad">the NFL's is ~1.3×</span>
+      </div>
+    </div>
+
+    <figure class="chart-card reveal" aria-labelledby="payroll-chart-title">
+      <figcaption id="payroll-chart-title" class="chart-title">2025 luxury-tax payrolls, top five vs bottom five <span class="chart-note">(approx., $ millions)</span></figcaption>
+      <div class="barchart" id="payroll-chart" role="img" aria-label="Bar chart of approximate 2025 luxury-tax payrolls. Dodgers about 398 million dollars, Mets 340, Yankees 318, Phillies 285, Blue Jays 259, league median 178, Pirates 110, Rays 103, White Sox 92, Marlins 86, Athletics 75."></div>
+      <details class="chart-table">
+        <summary>View data as table</summary>
+        <table>
+          <thead><tr><th scope="col">Team</th><th scope="col">Approx. 2025 CBT payroll ($M)</th></tr></thead>
+          <tbody id="payroll-table-body"></tbody>
+        </table>
+      </details>
+    </figure>
+
+    <blockquote class="pull-quote reveal">
+      <p>The Dodgers' 2024 <em>luxury-tax bill alone</em> — roughly
+      $103&nbsp;million — was bigger than the Athletics' entire Opening Day payroll.</p>
+      <footer>That is not parity. That's a different sport wearing the same uniform.</footer>
+    </blockquote>
+
+    <div class="cap-strip reveal" aria-label="Salary caps across major leagues">
+      <h3 class="cap-strip-title">Leagues with a salary cap</h3>
+      <ul class="cap-list">
+        <li><span class="cap-league">NFL</span><span class="cap-check yes" aria-hidden="true">✓</span><span class="cap-year">since 1994</span></li>
+        <li><span class="cap-league">NBA</span><span class="cap-check yes" aria-hidden="true">✓</span><span class="cap-year">since 1984</span></li>
+        <li><span class="cap-league">NHL</span><span class="cap-check yes" aria-hidden="true">✓</span><span class="cap-year">since 2005</span></li>
+        <li class="cap-no"><span class="cap-league">MLB</span><span class="cap-check no" aria-hidden="true">✗</span><span class="cap-year">never</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEFERRALS ============ -->
+<section class="deferrals" id="deferrals">
+  <div class="wrap">
+    <h2 class="section-title reveal">The deferral shell game</h2>
+    <p class="section-lede reveal">Shohei Ohtani's contract pays him <strong>$2&nbsp;million a year</strong>
+    now and <strong>$68&nbsp;million a year</strong> starting in 2034. Multiply that trick across a
+    roster and the Dodgers have kicked more than <strong>a billion dollars</strong> of salary into
+    the 2030s and 2040s — buying superteams today with tomorrow's money, while the
+    luxury tax shrugs.</p>
+
+    <figure class="chart-card reveal" aria-labelledby="deferral-chart-title">
+      <figcaption id="deferral-chart-title" class="chart-title">Dodgers deferred salary by player <span class="chart-note">(approx., $ millions, owed through 2046)</span></figcaption>
+      <div class="barchart" id="deferral-chart" role="img" aria-label="Bar chart of approximate Dodgers deferred salaries. Shohei Ohtani 680 million dollars, Mookie Betts 115, Blake Snell 66, Freddie Freeman 57, Tommy Edman 25, Teoscar Hernandez 23, other deferrals about 40."></div>
+      <details class="chart-table">
+        <summary>View data as table</summary>
+        <table>
+          <thead><tr><th scope="col">Player</th><th scope="col">Approx. deferred salary ($M)</th></tr></thead>
+          <tbody id="deferral-table-body"></tbody>
+        </table>
+      </details>
+    </figure>
+
+    <div class="deferral-total reveal">
+      <span class="deferral-total-label">Total Dodgers deferred obligations</span>
+      <span class="deferral-total-value">$<span data-count="1.0" data-decimals="1">0</span>B+</span>
+      <span class="deferral-total-note">owed through 2046 — some of it to players who will be in their mid-40s when the checks clear</span>
+    </div>
+
+    <p class="body-copy reveal">To be clear about the villain here: it isn't Ohtani, and it isn't
+    even really the Dodgers' front office, which is simply playing the rules as written better
+    than anyone else. The villain is a CBA that lets present-day dominance be financed with
+    accounting. When the best-run, richest team can also legally discount its own payroll for
+    tax purposes, the "competitive balance tax" is neither about balance nor much of a tax.
+    A hard cap counts money when the value is delivered — problem solved.</p>
+  </div>
+</section>
+
+<!-- ============ THE FIX ============ -->
+<section class="fix" id="fix">
+  <div class="wrap">
+    <h2 class="section-title reveal">The fix: cap, floor, and a competitive integrity tax</h2>
+    <p class="section-lede reveal">Three mechanisms, one principle — every team pays for the
+    privilege of <em>not competing</em>, whether they're buying pennants or pocketing checks.</p>
+
+    <div class="fix-grid">
+      <article class="fix-card reveal">
+        <div class="fix-num" aria-hidden="true">1</div>
+        <h3>A hard salary cap</h3>
+        <p>A real ceiling, not a soft "tax line" that the Dodgers treat as a cover
+        charge. Deferred money counts at full present value in the year the player
+        plays. No team buys a five-year head start again.</p>
+        <div class="fix-meter" aria-hidden="true"><div class="fix-meter-fill" style="--fill:78%"></div><span class="fix-meter-cap">CAP</span></div>
+      </article>
+      <article class="fix-card reveal">
+        <div class="fix-num" aria-hidden="true">2</div>
+        <h3>A salary floor</h3>
+        <p>If there's a ceiling for the Dodgers, there's a floor for the Pirates,
+        Marlins, and A's. Every club spends a guaranteed minimum on major-league
+        payroll — revenue sharing becomes roster investment, not owner profit.</p>
+        <div class="fix-meter" aria-hidden="true"><div class="fix-meter-fill floor" style="--fill:34%"></div><span class="fix-meter-cap floor-cap">FLOOR</span></div>
+      </article>
+      <article class="fix-card reveal">
+        <div class="fix-num" aria-hidden="true">3</div>
+        <h3>The competitive integrity tax</h3>
+        <p>Miss the floor? Pay the difference — plus a penalty — into a pool
+        distributed to teams that <em>do</em> spend. Tanking stops being a business
+        model the moment it has an invoice attached.</p>
+        <div class="fix-meter" aria-hidden="true"><div class="fix-meter-fill tax" style="--fill:55%"></div><span class="fix-meter-cap tax-cap">TAX DUE</span></div>
+      </article>
+    </div>
+
+    <p class="body-copy reveal">Yes, the union has always treated a cap as a non-starter, and yes,
+    that fight is exactly why the coming lockout could be long and ugly. But a cap <em>with a
+    floor</em> is a different proposal than the one the players rejected in 1994: it guarantees
+    the middle and bottom of the league spends, it widens the number of real bidders for every
+    free agent, and it means a kid in Pittsburgh grows up with the same October odds as a kid
+    in Los Angeles. That's worth missing some spring training games for.</p>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="timeline-section" id="timeline">
+  <div class="wrap">
+    <h2 class="section-title reveal">Road to the lockout</h2>
+    <ol class="timeline">
+      <li class="tl-item reveal">
+        <span class="tl-date">Dec 2, 2021</span>
+        <div class="tl-body"><h3>The last lockout</h3><p>Owners lock the players out for 99 days — the sport's first work stoppage in a quarter century. It ends with a bigger tax threshold and no cap. The core dispute is merely postponed.</p></div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-date">Dec 9, 2023</span>
+        <div class="tl-body"><h3>The $680M deferral</h3><p>Ohtani signs for 10 years and $700 million — $680 million of it deferred to 2034–2043. The contract that proves the tax system can be gamed at scale.</p></div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-date">2024 – 2025</span>
+        <div class="tl-body"><h3>Back-to-back</h3><p>The Dodgers win consecutive World Series titles while running the largest payroll in the sport's history. Fans of 25+ franchises begin their winters in November knowing how this movie ends.</p></div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-date">2025 – 2026</span>
+        <div class="tl-body"><h3>Cap talk goes public</h3><p>Ownership's appetite for a salary cap moves from whispers to open signaling. The union calls it a non-starter. Both sides quietly prepare for war.</p></div>
+      </li>
+      <li class="tl-item tl-current reveal">
+        <span class="tl-date">Dec 1, 2026</span>
+        <div class="tl-body"><h3>The CBA expires</h3><p>11:59 PM ET. A lockout is widely expected the moment the clock strikes. This is the leverage point — the one moment the system can actually be rebuilt.</p></div>
+      </li>
+      <li class="tl-item tl-future reveal">
+        <span class="tl-date">2027</span>
+        <div class="tl-body"><h3>The season at stake</h3><p>Spring training, maybe more, hangs on the fight. If baseball comes back with a cap, a floor, and a competitive integrity tax — it will have been worth it.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ CLOSER ============ -->
+<section class="closer">
+  <div class="wrap">
+    <svg class="closer-ball float-slow" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" class="ball-face"/>
+      <path d="M25 12 Q40 50 25 88" class="ball-stitch-line"/>
+      <path d="M75 12 Q60 50 75 88" class="ball-stitch-line"/>
+    </svg>
+    <h2 class="closer-title reveal">Lock it out. Fix it. <em>Then play ball.</em></h2>
+    <p class="closer-sub reveal">Baseball survives lockouts. It might not survive another decade of
+    one team playing Monopoly while the rest play small ball.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>CBA Watch</strong> is a fan-made opinion site. It is not affiliated with, endorsed by,
+    or connected to Major League Baseball, the MLBPA, or any team. Payroll and deferral figures are
+    approximations compiled from public reporting and are marked as such. The takes, however, are 100% correct.</p>
+  </div>
+</footer>
+
+<div class="viz-tooltip" id="viz-tooltip" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
