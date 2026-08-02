@@ -1,0 +1,13 @@
+{
+  "name": "CBA Watch",
+  "short_name": "CBA Watch",
+  "description": "Live countdown to the expiration of MLB's collective bargaining agreement, and the case for a salary cap.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0b0d",
+  "theme_color": "#0a0b0d",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
