@@ -20,7 +20,7 @@
       cd.h.textContent = cd.m.textContent = cd.s.textContent = "00";
       miniClock.textContent = "expired";
       el("clock-caption").textContent =
-        "The CBA has expired. The lockout is here — time to build the fix.";
+        "The CBA has expired. Now we find out what baseball wants to be.";
       return;
     }
     var s = Math.floor(ms / 1000);
