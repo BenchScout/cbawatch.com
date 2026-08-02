@@ -1,30 +1,30 @@
-# CBA*WATCH
+# CBA Watch
 
-**Salary cap, or shut it down.** An opinionated, art-directed single-page site counting
-down to the expiration of MLB's collective bargaining agreement on **December 1, 2026** —
-and making the case for a salary cap, a salary floor, and a competitive integrity tax.
+**Baseball has a $400,000,000 problem.** A live countdown to the expiration of MLB's
+collective bargaining agreement on **December 1, 2026** — and the case for a salary cap,
+a salary floor, and a competitive integrity tax.
 
-Editorial "case file" design: newsprint paper, ink, and stitch-red; Fraunces display
-serif with Space Grotesk body and Space Mono scorecard labels (self-hosted, latin subset).
-Plain HTML, CSS, and vanilla JavaScript — no build step, no dependencies.
+Precision dark design: near-black surfaces, hairline rules, a single signal-red accent,
+and self-hosted Geist Sans / Geist Mono (latin subset, ~52KB). Plain HTML, CSS, and
+vanilla JavaScript — no build step, no dependencies.
 
 ## Structure
 
-- `index.html` — the whole page: hero doom-clock, ticker marquee, the position, Exhibits A/B
-  (payroll + deferral ledgers), the remedy, road to the lockout, closer
-- `styles.css` — typography, film grain, scroll choreography, ledger chart styles
-- `app.js` — live countdown (hero + topbar), scroll progress, reveal animations,
-  animated counters, chart rendering + tooltips
-- `fonts/` — self-hosted WOFF2 (Fraunces variable, Space Grotesk variable, Space Mono)
+- `index.html` — the page: hero with live countdown, position, the gap (payroll chart),
+  deferrals (deferred-salary chart), remedy, timeline
+- `styles.css` — theming, layout, chart styles, entrance/reveal motion
+- `app.js` — countdown (hero + nav), hero figure count-up, scroll reveals, animated
+  counters, chart rendering + tooltips
+- `fonts/` — self-hosted WOFF2 (Geist variable, Geist Mono variable)
 - `.github/workflows/deploy.yml` — deploys to GitHub Pages on every push to `main`
 
-Charts carry direct value labels, keyboard-focusable rows with tooltips, and a
-"view data as table" fallback. All animation respects `prefers-reduced-motion`.
+Charts have direct value labels, keyboard-focusable rows with tooltips, and a data-table
+fallback. All motion respects `prefers-reduced-motion`.
 
 ## Deploying
 
-1. Merge to `main` (the workflow triggers on pushes to `main`, or run it manually via
-   the Actions tab with *workflow_dispatch*).
+1. Merge to `main` (the workflow triggers on pushes to `main`, or run it manually via the
+   Actions tab with *workflow_dispatch*).
 2. One-time setup: **Settings → Pages → Build and deployment → Source → GitHub Actions**.
 3. To serve at `cbawatch.com`, add the custom domain under **Settings → Pages** and point
    the domain's DNS at GitHub Pages.
