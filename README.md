@@ -33,6 +33,15 @@ fallback. All motion respects `prefers-reduced-motion`.
 3. To serve at `cbawatch.com`, add the custom domain under **Settings → Pages** and point
    the domain's DNS at GitHub Pages.
 
+## Contributing
+
+Commits follow
+[Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) —
+`type(scope): description`, in the imperative mood. The types, this
+repository's scopes, the pull request conventions, and what to run before
+pushing are in [CONTRIBUTING.md](./CONTRIBUTING.md). A CI check validates every
+commit a pull request adds, and the pull request title.
+
 ## Disclaimer
 
 Fan-made opinion site. Not affiliated with MLB, the MLBPA, or any club. Payroll and
