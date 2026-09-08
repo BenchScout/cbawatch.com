@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------
+# <type>(<scope>): <description>
+#
+# The first line is 72 characters or fewer, in the imperative mood
+# ("add", not "added"), lowercase, with no full stop at the end.
+#
+# Then a blank line, then the why: the failure that motivated this, or
+# the approach you rejected. Wrap at 72 columns. Delete it if the
+# change genuinely speaks for itself.
+#
+# Then a blank line, then footers if there are any:
+#   Refs: #12          Closes: #12          Co-Authored-By: Name <email>
+#   BREAKING CHANGE: <what breaks, and what a caller has to change>
+# ----------------------------------------------------------------------
+# type     feat      a new capability
+#          fix       behaviour that was wrong, corrected
+#          perf      same behaviour, lower cost
+#          refactor  same behaviour, different shape
+#          docs      documentation only
+#          style     formatting only
+#          test      tests and verification scripts only
+#          build     the build, packaging, or a dependency bump
+#          ci        workflows and .github/
+#          chore     housekeeping that fits nothing above
+#          revert    undoes an earlier commit
+#
+# scope    content, design, charts, countdown, seo, assets, a11y, docs,
+#          deps, ci
+#          (optional — leave it off if the change spans the repo)
+#
+# break    feat(api)!: <description>   plus a BREAKING CHANGE: footer
+# ----------------------------------------------------------------------
+# The whole convention, with examples: CONTRIBUTING.md
+# https://www.conventionalcommits.org/en/v1.0.0/
+# ----------------------------------------------------------------------
