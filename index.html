@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +32,20 @@
 <link rel="dns-prefetch" href="https://benchscout.com">
 <link rel="preload" href="fonts/Geist-300-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/GeistMono-400-600.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* Reveal safety net. The 44 .reveal sections below the hero are opacity:0
+   until app.js wires up the scroll observer, so anything that stops app.js
+   short — blocked request, 404, a throw earlier in the file — leaves the page
+   rendering as a near-blank screen. Mark that JS is live, then un-hide
+   everything if app.js never reports ready. */
+(function (d) {
+  var r = d.documentElement;
+  r.className = r.className.replace(/\bno-js\b/, "").trim() + " js";
+  setTimeout(function () {
+    if (!r.hasAttribute("data-reveals-ready")) r.classList.add("reveals-fallback");
+  }, 2500);
+})(document);
+</script>
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
@@ -266,15 +280,15 @@
 
       <div class="kpis reveal">
         <div class="kpi">
-          <span class="kpi-num">$<span data-count="352.2" data-decimals="1">0</span>M</span>
+          <span class="kpi-num">$<span data-count="352.2" data-decimals="1">352.2</span>M</span>
           <span class="kpi-label">Mets payroll, 2026 opening day<sup class="cite"><a href="#src-2">2</a></sup></span>
         </div>
         <div class="kpi">
-          <span class="kpi-num">$<span data-count="62.3" data-decimals="1">0</span>M</span>
+          <span class="kpi-num">$<span data-count="62.3" data-decimals="1">62.3</span>M</span>
           <span class="kpi-label">Guardians payroll, 2026 opening day<sup class="cite"><a href="#src-2">2</a></sup></span>
         </div>
         <div class="kpi">
-          <span class="kpi-num accent"><span data-count="5.7" data-decimals="1">0</span>×</span>
+          <span class="kpi-num accent"><span data-count="5.7" data-decimals="1">5.7</span>×</span>
           <span class="kpi-label">Top-to-bottom spread (the NFL's is under 1.4×)</span>
         </div>
       </div>
@@ -324,11 +338,11 @@
 
       <div class="kpis reveal">
         <div class="kpi">
-          <span class="kpi-num">$<span data-count="402.6" data-decimals="1">0</span>M</span>
+          <span class="kpi-num">$<span data-count="402.6" data-decimals="1">402.6</span>M</span>
           <span class="kpi-label">Total tax paid for 2025 — an all-time record<sup class="cite"><a href="#src-1">1</a></sup></span>
         </div>
         <div class="kpi">
-          <span class="kpi-num"><span data-count="9">0</span></span>
+          <span class="kpi-num"><span data-count="9">9</span></span>
           <span class="kpi-label">Teams over the line, tying 2024's record<sup class="cite"><a href="#src-1">1</a></sup></span>
         </div>
         <div class="kpi">
@@ -385,7 +399,7 @@
       </figure>
 
       <div class="total reveal">
-        <span class="total-num">$<span data-count="1.051" data-decimals="3">0</span>B</span>
+        <span class="total-num">$<span data-count="1.051" data-decimals="3">1.051</span>B</span>
         <p class="total-note">in Dodgers salary owed to eight players between 2028 and
         2046.<sup class="cite"><a href="#src-5">5</a></sup> Some of these checks will arrive long
         after the players have retired.</p>
