@@ -336,6 +336,8 @@
     });
   }
   var targets = document.querySelectorAll(".reveal");
+  /* Tells the head script's watchdog to stand down — reveals are handled. */
+  document.documentElement.setAttribute("data-reveals-ready", "");
   if ("IntersectionObserver" in window && !reducedMotion) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
